@@ -2,6 +2,7 @@
 /**
  * FooGallery Foo Justified Album gallery template
  * This is the template that is run when a FooGallery shortcode is rendered to the frontend
+ * FIXME: foogallery-inline-scripts hook not running; compare init files
  */
 global $current_foogallery_album;
 global $current_foogallery_album_arguments;
@@ -37,9 +38,8 @@ $caption_source = foogallery_album_template_setting( 'caption_source', 'title' )
 			// Save cover image into variable
 			$img_html = $attachment->html_img_src( $args );
 
-			// Build gallery links
 			// $gallery_link = foogallery_album_build_gallery_link( $current_foogallery_album, $gallery );
-			// $gallery_link_target = foogallery_album_build_gallery_link_target( $current_foogallery_album, $gallery );
+			$gallery_link_target = foogallery_album_build_gallery_link_target( $current_foogallery_album, $gallery );
 			$gallery_link = $attachment->html_img_src( $args );
 
 			// Build gallery title
