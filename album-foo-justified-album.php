@@ -2,7 +2,6 @@
 /**
  * FooGallery Foo Justified Album gallery template
  * This is the template that is run when a FooGallery shortcode is rendered to the frontend
- * FIXME: foogallery-inline-scripts hook not running; compare init files
  */
 global $current_foogallery_album;
 global $current_foogallery_album_arguments;
@@ -11,6 +10,9 @@ $gallery = foogallery_album_get_current_gallery();
 $height = foogallery_album_template_setting( 'thumb_height', '250' );
 $row_height = foogallery_album_template_setting( 'row_height', '150' );
 $max_row_height = foogallery_album_template_setting( 'max_row_height', '200%' );
+
+$displayed = [];
+$display_counter = 0;
 
 if ( strpos( $max_row_height, '%' ) !== false ) {
 	$max_row_height = '"' . $max_row_height . '"';
@@ -26,7 +28,7 @@ $lightbox = foogallery_album_template_setting( 'lightbox', 'unknown' );
 $caption_source = foogallery_album_template_setting( 'caption_source', 'title' );
 ?>
 
-<div data-justified-options='{ "rowHeight": <?php echo $row_height; ?>, "maxRowHeight": <?php echo $max_row_height; ?>, "margins": <?php echo $margins; ?>, "captions": <?php echo $captions ? 'true' : 'false'; ?> }' id="foogallery-album-<?php echo $current_foogallery_album->ID; ?>" class="foogallery-container foogallery-justified-loading foogallery-lightbox-<?php echo $lightbox; ?>" >
+<div data-justified-options='{ "rowHeight": <?php echo $row_height; ?>, "maxRowHeight": <?php echo $max_row_height; ?>, "margins": <?php echo $margins; ?>, "captions": <?php echo $captions ? 'true' : 'false'; ?> }' id="foogallery-album-<?php echo $current_foogallery_album->ID; ?>" class="foogallery-container foogallery-justified foogallery-justified-loading foogallery-lightbox-<?php echo $lightbox; ?>" >
 	<?php foreach ( $current_foogallery_album->galleries() as $gallery ) {
 		// Check for album galleries
 		if (!empty($gallery->attachment_ids)) {
@@ -37,10 +39,8 @@ $caption_source = foogallery_album_template_setting( 'caption_source', 'title' )
 
 			// Save cover image into variable
 			$img_html = $attachment->html_img_src( $args );
-
-			// $gallery_link = foogallery_album_build_gallery_link( $current_foogallery_album, $gallery );
-			$gallery_link_target = foogallery_album_build_gallery_link_target( $current_foogallery_album, $gallery );
-			$gallery_link = $attachment->html_img_src( $args );
+			$displayed[$display_counter] = $attachment->ID;
+			$display_counter ++;
 
 			// Build gallery title
 			$title = empty( $gallery->name ) ?
@@ -54,7 +54,7 @@ $caption_source = foogallery_album_template_setting( 'caption_source', 'title' )
 				$gallery->alt = $gallery->caption;
 			} ?>
 
-			<a href="<?php echo esc_url( $gallery_link ); ?>" target="<?php echo $gallery_link_target; ?>" rel="gallery[<?php echo $gallery->ID ?>]" class="<?php echo $lightbox; ?>">
+			<a href="<?php echo esc_url( $img_html); ?>" rel="<?php echo $lightbox; ?>[<?php echo $gallery->ID ?>]" class="<?php echo $lightbox;?>">
 				<img alt="<?php echo $title; ?>" src="<?php echo $img_html; ?>" height="<?php echo $height; ?>px" />
 			</a>
 

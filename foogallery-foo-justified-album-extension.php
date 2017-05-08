@@ -78,16 +78,16 @@ if ( !class_exists( 'Foo_Justified_Album_Template_FooGallery_Extension' ) ) {
 		 * Enqueue any script or stylesheet file dependencies that your gallery template relies on
 		 */
 		function enqueue_dependencies() {
-			//$js = FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_URL . 'js/jquery.foo-justified-album.js';
-			//wp_enqueue_script( 'foo-justified-album', $js, array('jquery'), FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_VERSION );
+			$js = FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_URL . 'js/jquery.album-foo-justified-album.js';
+			wp_enqueue_script( 'album-foo-justified-album', $js, array('jquery'), FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_VERSION );
 
-			//$css = FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_URL . 'css/foo-justified-album.css';
-			//foogallery_enqueue_style( 'foo-justified-album', $css, array(), FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_VERSION );
+			$css = FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_URL . 'css/album-foo-justified-album.css';
+			foogallery_enqueue_style( 'album-foo-justified-album', $css, array(), FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_VERSION );
 		}
 
 		/**
-		 * Add our gallery template to the list of templates available for every gallery
-		 * @param $gallery_templates
+		 * Add our album template to the list of templates available for every album
+		 * @param $album_templates
 		 *
 		 * @return array
 		 */
@@ -96,8 +96,8 @@ if ( !class_exists( 'Foo_Justified_Album_Template_FooGallery_Extension' ) ) {
 			$album_templates[] = array(
 				'slug'        => 'foo-justified-album',
 				'name'        => __( 'Foo Justified Album', 'foogallery-foo-justified-album'),
-				'preview_css' => FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_URL . 'css/gallery-foo-justified-album.css',
-				'admin_js'	  => FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_URL . 'js/admin-gallery-foo-justified-album.js',
+				'preview_css' => FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_URL . 'css/foo-justified-album.css',
+				'admin_js'	  => FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_URL . 'js/admin-foo-justified-album.js',
 				'fields'	  => array(
 							array(
 									'id'	  => 'help',
