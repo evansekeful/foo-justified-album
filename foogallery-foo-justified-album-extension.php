@@ -78,11 +78,16 @@ if ( !class_exists( 'Foo_Justified_Album_Template_FooGallery_Extension' ) ) {
 		 * Enqueue any script or stylesheet file dependencies that your gallery template relies on
 		 */
 		function enqueue_dependencies() {
+			$css = FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_URL . 'css/album-foo-justified-album.css';
+			foogallery_enqueue_style( 'album-foo-justified-album', $css, array(), FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_VERSION );
+
 			$js = FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_URL . 'js/jquery.album-foo-justified-album.js';
 			wp_enqueue_script( 'album-foo-justified-album', $js, array('jquery'), FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_VERSION );
 
-			$css = FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_URL . 'css/album-foo-justified-album.css';
-			foogallery_enqueue_style( 'album-foo-justified-album', $css, array(), FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_VERSION );
+			/*$lazysizes = FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_URL . 'js/jquery.album-foo-justified-album.js';
+			if (!wp_script_is( 'lazysizes', 'enqueued' ) ) {
+				wp_enqueue_script( 'album-foo-justified-album', $lazysizes, array('jquery'), FOO_JUSTIFIED_ALBUM_TEMPLATE_FOOGALLERY_EXTENSION_VERSION );
+			} */
 		}
 
 		/**

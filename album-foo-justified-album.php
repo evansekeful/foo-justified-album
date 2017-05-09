@@ -38,9 +38,29 @@ $caption_source = foogallery_album_template_setting( 'caption_source', 'title' )
 			if ( false === $attachment ) continue;
 
 			// Save cover image into variable
-			$img_html = $attachment->html_img_src( $args );
+			$img_src = $attachment->html_img_src( $args );
 			$displayed[$display_counter] = $attachment->ID;
 			$display_counter ++;
+
+			// Save link in variable
+			if ( 'page' === $link ) {
+					//get the URL to the attachment page
+					$url = get_attachment_link( $attachment->ID );
+				} else if ( 'custom' === $link ) {
+					$url = $args['custom_link'];
+				} else {
+					$url = $attachment->url;
+				}
+				//fallback for images that might not have a custom url
+				if ( empty( $url ) ) {
+					$url = $this->url;
+				}
+				$img_link ='#';
+				//only add if the link is NOT set to 'none'
+				if ( $link !== 'none' ){
+					$img_link = $url;
+				}
+
 
 			// Build gallery title
 			$title = empty( $gallery->name ) ?
@@ -54,10 +74,27 @@ $caption_source = foogallery_album_template_setting( 'caption_source', 'title' )
 				$gallery->alt = $gallery->caption;
 			} ?>
 
-			<a href="<?php echo esc_url( $img_html); ?>" rel="<?php echo $lightbox; ?>[<?php echo $gallery->ID ?>]" class="<?php echo $lightbox;?>">
-				<img alt="<?php echo $title; ?>" src="<?php echo $img_html; ?>" height="<?php echo $height; ?>px" />
+			<a href="<?php echo esc_url( $img_link); ?>" rel="<?php echo $lightbox; ?>_<?php echo $gallery->ID ?>" class="<?php echo $lightbox;?>">
+				<img alt="<?php echo $title; ?>" src="<?php echo $img_src; ?>" height="<?php echo $height; ?>px" />
 			</a>
 
 		<?php } ?>
 	<?php } ?>
+</div>
+<!-- Load the rest of gallery images on to page -->
+<div style="display: none;"class="foogallery-lightbox-<?php echo $lightbox; ?>">
+	<?php foreach ( $current_foogallery_album->galleries() as $gallery ) {
+		foreach ( $gallery->attachments() as $attachment ) {
+			$id = $attachment->ID;
+			if ( !in_array($id, $displayed) ) {
+				$img_html = $attachment->html_img_src( $args );
+	?>
+
+	<a href="<?php echo esc_url( $img_html); ?>" rel="<?php echo $lightbox; ?>_<?php echo $gallery->ID ?>" class="<?php echo $lightbox;?>">
+		<img src="<?php echo $img_html; ?>" />
+	</a>
+
+	<?php }
+		}
+	} ?>
 </div>

@@ -47,4 +47,8 @@ FooGallery_Justified_Ready(function () {
             } else window.dispatchEvent(new Event('resize'));
         }
     });
+    // Explicit support for Swipebox plugin
+    jQuery('.foogallery-justified').on('jg.complete', function () {
+        jQuery('.swipebox').swipebox();
+      });
 });
