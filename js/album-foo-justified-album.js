@@ -21,7 +21,7 @@ function FooGallery_Justified_Ready(callback) {
  */
 FooGallery_Justified_Ready(function () {
     jQuery('.foogallery-justified').each(function() {
-        var $gallery = jQuery(this);
+        var gallery = jQuery(this);
         var options = jQuery.extend( {
             cssAnimation: true,
             waitThumbnailsLoad: false,
@@ -35,9 +35,10 @@ FooGallery_Justified_Ready(function () {
                 'lt640':'',
                 'lt1024':''
             }
-        }, $gallery.data('justified-options') );
+        }, gallery.data('justified-options') );
 
-        $gallery.removeClass('foogallery-justified-loading').justifiedGallery( options );
+        gallery.removeClass('foogallery-justified-loading').justifiedGallery( options );
+        jQuery('.foogallery-justified').css('display', '');
 
         //force a resize event so certain themes can update their layout
         if (window.fireEvent && document.createEventObject) window.fireEvent('onresize', document.createEventObject());

@@ -28,7 +28,7 @@ $lightbox = foogallery_album_template_setting( 'lightbox', 'unknown' );
 $caption_source = foogallery_album_template_setting( 'caption_source', 'title' );
 ?>
 
-<div data-justified-options='{ "rowHeight": <?php echo $row_height; ?>, "maxRowHeight": <?php echo $max_row_height; ?>, "margins": <?php echo $margins; ?>, "captions": <?php echo $captions ? 'true' : 'false'; ?> }' id="foogallery-album-<?php echo $current_foogallery_album->ID; ?>" class="foogallery-container foogallery-justified foogallery-justified-loading foogallery-lightbox-<?php echo $lightbox; ?>" >
+<div style="display:none;" data-justified-options='{ "rowHeight": <?php echo $row_height; ?>, "maxRowHeight": <?php echo $max_row_height; ?>, "margins": <?php echo $margins; ?>, "captions": <?php echo $captions ? 'true' : 'false'; ?> }' id="foogallery-album-<?php echo $current_foogallery_album->ID; ?>" class="foogallery-container foogallery-justified foogallery-justified-loading foogallery-lightbox-<?php echo $lightbox; ?>" >
 	<?php foreach ( $current_foogallery_album->galleries() as $gallery ) {
 		// Check for album galleries
 		if (!empty($gallery->attachment_ids)) {
